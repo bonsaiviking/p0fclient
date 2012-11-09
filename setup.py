@@ -10,4 +10,5 @@ setup( name='p0fclient',
         url='https://github.com/bonsaiviking/p0fclient',
         packages=['p0fclient'],
         requires=['ipaddr'],
+        scripts=['scripts/p0f-client'],
         )

@@ -25,9 +25,9 @@ for addr in args:
         print "    OS: {0} {1}".format(info.os_name, info.os_flavor)
         print "    OS match quality: {0}".format(
                 (["normal", "fuzzy", "generic", "fuzzy and generic"])[info.os_match_q])
-        if hasattr(info, "last_chg"):
+        if info.last_chg:
             print "    Last OS change: {0!s}".format(info.last_chg)
-    if hasattr(info, "distance"):
+    if info.distance is not None:
         print "    Distance: {0}".format(info.distance)
     if info.uptime_min != 0:
         print "    Uptime: {0}:{1:02}:{2:02}, modulo {3} days".format(
@@ -35,11 +35,11 @@ for addr in args:
                 (info.uptime_min / 60) % (60 * 24),
                 info.uptime_min % 60,
                 info.up_mod_days)
-    if hasattr(info, "last_nat"):
+    if info.last_nat:
         print "    Last IP sharing: {0!s}".format(info.last_nat)
     if info.http_name:
         print "    HTTP app: {0} {1}".format(info.http_name, info.http_flavor)
-        if hasattr(info, "bad_sw"):
+        if info.bad_sw:
             print "    OS mismatch: {0}".format(info.bad_sw)
     if info.link_type:
         print "    Link type: {0}".format(info.link_type)

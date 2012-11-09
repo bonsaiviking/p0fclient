@@ -49,7 +49,7 @@ class P0fClient(object):
             raise NoMatch
         elif status != 0x10:
             raise CommError, "Unknown status"
-        info = struct.unpack_from("7L H 2c 32s 32s 32s 32s 32s 32s", blob, 8)
+        info = struct.unpack_from("7L h 2b 32s 32s 32s 32s 32s 32s", blob, 8)
         h = HostInfo()
         h.first_seen = datetime.utcfromtimestamp(info[0])
         h.last_seen =  datetime.utcfromtimestamp(info[1])
@@ -62,9 +62,8 @@ class P0fClient(object):
             h.last_chg = datetime.utcfromtimestamp(info[6])
         if info[7] != -1:
             h.distance = info[7]
-        if info[8] != "\x00":
-            h.bad_sw = info[8] # 1 means OS mismatch, 2 means very mismatched
-        h.os_match_q = ord(info[9]) #0=normal, 1=fuzzy, 2=generic, 3=fuzzy and generic
+        h.bad_sw = info[8] # 1 means OS mismatch, 2 means very mismatched, 0 otherwise
+        h.os_match_q = info[9] #0=normal, 1=fuzzy, 2=generic, 3=fuzzy and generic
         h.os_name = info[10].rstrip("\x00")
         h.os_flavor = info[11].rstrip("\x00")
         h.http_name = info[12].rstrip("\x00")
